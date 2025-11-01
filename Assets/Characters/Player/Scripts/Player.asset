@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773d33fe2c316a643964dc3a317af4c6, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  moveSpeed: 2
+  acceleration: 25
+  jumpForce: 2
+  sensitivity: 0.25
+  clampLowerLimit: -25
+  clampUpperLimit: 65
+  cameraOffset: 1.99
+  cameraHeight: 0.52
