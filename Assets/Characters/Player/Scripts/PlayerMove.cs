@@ -16,25 +16,12 @@ public class PlayerMove : MonoBehaviour
         _collider = GetComponent<Collider>();
         inputReader.moveEvent += Move;
         inputReader.lookEvent += Rotate;
-        inputReader.jumpEvent += Jump;
     }
 
     private void OnDisable()
     {
         inputReader.moveEvent -= Move;
         inputReader.lookEvent -= Rotate;
-        inputReader.jumpEvent -= Jump;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -64,25 +51,14 @@ public class PlayerMove : MonoBehaviour
 
     public void Jump()
     {
-        var playerHeight = _collider.bounds.size.y/2 +0.1f; 
-        if (Physics.BoxCast(transform.position, _collider.bounds.extents, transform.up * -1, out RaycastHit hit, Quaternion.identity, playerHeight))
+        var castDist = 0.1f; 
+        var halfExtents = new Vector3(_collider.bounds.extents.x/2, castDist, _collider.bounds.extents.z/2);
+        var castOrigin = transform.position - new Vector3(0, _collider.bounds.extents.y/2 + castDist, 0);
+        if (Physics.BoxCast(castOrigin, halfExtents, transform.up * -1, out RaycastHit hit, transform.localRotation, castDist))
         {
             var jumpForce = transform.up;
             jumpForce *= playerData.jumpForce;
             _rigidbody.AddForce(jumpForce, ForceMode.Impulse);
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        _collider = GetComponent<Collider>();
-        var playerHeight = _collider.bounds.size.y/2 +0.1f; 
-        Gizmos.color = Color.red;
-        Physics.BoxCast(transform.position, _collider.bounds.extents*0.5f, transform.up * -1, out RaycastHit hit,
-            Quaternion.identity, playerHeight);
-        
-        Gizmos.DrawRay(transform.position, transform.up * -playerHeight);
-        var bounds = _collider.bounds.extents;
-        Gizmos.DrawWireCube(transform.position, bounds);
     }
 }
